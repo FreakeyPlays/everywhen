@@ -12,5 +12,9 @@ export default defineConfig({
   },
   run: {
     cache: true,
+    tasks: {
+      build: { command: "vp build", env: ["APP_ENV"] },
+      test: { command: "vp test", env: ["APP_ENV"] },
+    },
   },
 });

@@ -12,6 +12,8 @@
     "prepare": "vp config"
   },
   "devDependencies": {
+    "@varlock/bitwarden-plugin": "^2.0.1",
+    "varlock": "^1.18.0",
     "vite": "catalog:",
     "vite-plus": "catalog:"
   },
