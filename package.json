@@ -9,9 +9,12 @@
   "type": "module",
   "scripts": {
     "ready": "vp check && vp run -r test && vp run -r build",
-    "prepare": "vp config"
+    "prepare": "vp config",
+    "version": "bun scripts/release.ts version",
+    "release:preview": "bun scripts/release.ts version --dry"
   },
   "devDependencies": {
+    "@types/bun": "^1.4.0",
     "@varlock/bitwarden-plugin": "^2.0.1",
     "varlock": "^1.18.0",
     "vite": "catalog:",

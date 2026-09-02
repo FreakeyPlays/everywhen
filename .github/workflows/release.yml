@@ -1,0 +1,70 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  RELEASE_BRANCH: release/main
+  RELEASE_SHA: ${{ github.event.workflow_run.head_sha }}
+
+jobs:
+  release:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+
+      - name: Setup Vite+
+        uses: voidzero-dev/setup-vp@250f29ce396baf5e8f24498e17c0dfdebabc26eb # v1
+        with:
+          node-version-file: package.json
+          cache: true
+          run-install: true
+
+      - name: Tag and release
+        run: |
+          TAG="v$(jq -r .version package.json)"
+          if [ "$TAG" = "v0.0.0" ] || git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
+            echo "$TAG already released"
+          else
+            gh release create "$TAG" --target "$RELEASE_SHA" --title "$TAG" --generate-notes
+            git fetch --tags --force
+          fi
+
+      - name: Update release PR
+        run: |
+          vp run version
+          if git diff --quiet; then exit 0; fi
+
+          TAG="v$(jq -r .version package.json)"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$RELEASE_BRANCH"
+          git add -A
+          git commit -m "chore: release $TAG"
+          git push -f origin "$RELEASE_BRANCH"
+
+          PR=$(gh pr list --head "$RELEASE_BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$PR" ]; then
+            gh pr edit "$PR" --title "chore: release $TAG"
+          else
+            gh pr create --draft --base main --head "$RELEASE_BRANCH" \
+              --title "chore: release $TAG" \
+              --body "Merging this PR releases **$TAG** and creates the GitHub release."
+          fi
