@@ -1,0 +1,107 @@
+# OSV-Scanner config for the Tauri crate.
+#
+# osv-scanner only reads a config from the directory holding the scanned
+# lockfile, so this file must live next to Cargo.lock.
+#
+# Every entry below is a transitive dependency of `tauri` that we cannot move
+# off of: Tauri 2.x renders on Linux through webkit2gtk -> gtk 0.18, and the
+# gtk-rs 0.18 line was deprecated wholesale by its maintainers in favour of the
+# GTK4 bindings. Tauri has no GTK4 backend yet, so there is no version of
+# `tauri` we can upgrade to that drops these. Re-check when Tauri ships a
+# GTK4/non-GTK Linux backend.
+#
+# Note these only affect Linux builds; the macOS and Windows backends do not
+# pull in the GTK stack at all.
+
+# --- gtk-rs 0.18 GTK3 bindings: unmaintained (no fixed version exists) -------
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0413" # atk
+reason = "Unmaintained gtk-rs GTK3 binding, pulled in by tauri -> webkit2gtk. No fixed version; no GTK4 backend in Tauri 2.x."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0416" # atk-sys
+reason = "Unmaintained gtk-rs GTK3 binding, pulled in by tauri -> webkit2gtk. No fixed version; no GTK4 backend in Tauri 2.x."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0412" # gdk
+reason = "Unmaintained gtk-rs GTK3 binding, pulled in by tauri -> webkit2gtk. No fixed version; no GTK4 backend in Tauri 2.x."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0418" # gdk-sys
+reason = "Unmaintained gtk-rs GTK3 binding, pulled in by tauri -> webkit2gtk. No fixed version; no GTK4 backend in Tauri 2.x."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0411" # gdkwayland-sys
+reason = "Unmaintained gtk-rs GTK3 binding, pulled in by tauri -> webkit2gtk. No fixed version; no GTK4 backend in Tauri 2.x."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0417" # gdkx11
+reason = "Unmaintained gtk-rs GTK3 binding, pulled in by tauri -> webkit2gtk. No fixed version; no GTK4 backend in Tauri 2.x."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0414" # gdkx11-sys
+reason = "Unmaintained gtk-rs GTK3 binding, pulled in by tauri -> webkit2gtk. No fixed version; no GTK4 backend in Tauri 2.x."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0415" # gtk
+reason = "Unmaintained gtk-rs GTK3 binding, pulled in by tauri -> webkit2gtk. No fixed version; no GTK4 backend in Tauri 2.x."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0420" # gtk-sys
+reason = "Unmaintained gtk-rs GTK3 binding, pulled in by tauri -> webkit2gtk. No fixed version; no GTK4 backend in Tauri 2.x."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0419" # gtk3-macros
+reason = "Unmaintained gtk-rs GTK3 binding, pulled in by tauri -> webkit2gtk. No fixed version; no GTK4 backend in Tauri 2.x."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+# --- glib 0.18.5: real unsoundness, but pinned by the GTK3 stack -------------
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0429" # also GHSA-wrw7-89jp-8q8g -- unsoundness in glib::VariantStrIter
+reason = "Fixed in glib 0.20, but gtk 0.18 requires glib ^0.18, so it cannot be bumped while Tauri is on the GTK3 stack. Unsound API is not called by this app."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+# --- proc-macro-error 1.0.4: unmaintained, build-time only -------------------
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2024-0370"
+reason = "Unmaintained. Proc-macro dependency of glib-macros 0.18 and gtk3-macros 0.18; build-time only and never linked into the shipped binary."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+# --- unic-* 0.9.0: unmaintained, via urlpattern ------------------------------
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2025-0081" # unic-char-property
+reason = "Unmaintained. Pulled in by tauri -> urlpattern 0.3 (latest release); no fixed version published."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2025-0075" # unic-char-range
+reason = "Unmaintained. Pulled in by tauri -> urlpattern 0.3 (latest release); no fixed version published."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2025-0080" # unic-common
+reason = "Unmaintained. Pulled in by tauri -> urlpattern 0.3 (latest release); no fixed version published."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2025-0100" # unic-ucd-ident
+reason = "Unmaintained. Pulled in by tauri -> urlpattern 0.3 (latest release); no fixed version published."
+ignoreUntil = 2027-03-01T00:00:00Z
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2025-0098" # unic-ucd-version
+reason = "Unmaintained. Pulled in by tauri -> urlpattern 0.3 (latest release); no fixed version published."
+ignoreUntil = 2027-03-01T00:00:00Z
