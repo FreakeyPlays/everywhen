@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
+import { ButtonComponent } from "@everywhen/ui";
 import { invoke } from "@tauri-apps/api/core";
-import { ButtonComponent } from "@lib/ui";
 
 @Component({
   selector: "app-root",

@@ -2,7 +2,6 @@ name: CI
 
 on:
   pull_request:
-  push:
     branches:
       - main
 
@@ -49,7 +48,24 @@ jobs:
           run-install: true
 
       - name: Test
-        run: vp run -r --parallel --concurrency-limit 4 test
+        run: vp run test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Setup Vite+
+        uses: voidzero-dev/setup-vp@250f29ce396baf5e8f24498e17c0dfdebabc26eb # v1
+        with:
+          node-version-file: package.json
+          cache: true
+          run-install: true
+
+      - name: Build
+        run: vp run build
 
   release_dry:
     name: Release (dry run)
