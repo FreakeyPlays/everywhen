@@ -6,66 +6,56 @@
     "packageManager": "bun"
   },
   "newProjectRoot": "projects",
+  "schematics": {
+    "@schematics/angular:component": {
+      "inlineStyle": true,
+      "type": "component",
+      "addTypeToClassName": false
+    },
+    "@schematics/angular:directive": {
+      "type": "directive",
+      "addTypeToClassName": false
+    },
+    "@schematics/angular:service": {
+      "type": "service",
+      "addTypeToClassName": false
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
+    }
+  },
   "projects": {
     "desktop": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "inlineStyle": true,
-          "skipTests": true,
-          "type": "component",
-          "addTypeToClassName": false
-        },
-        "@schematics/angular:class": {
-          "skipTests": true
-        },
-        "@schematics/angular:directive": {
-          "skipTests": true,
-          "type": "directive",
-          "addTypeToClassName": false
-        },
-        "@schematics/angular:guard": {
-          "skipTests": true,
-          "typeSeparator": "."
-        },
-        "@schematics/angular:interceptor": {
-          "skipTests": true,
-          "typeSeparator": "."
-        },
-        "@schematics/angular:pipe": {
-          "skipTests": true,
-          "typeSeparator": "."
-        },
-        "@schematics/angular:resolver": {
-          "skipTests": true,
-          "typeSeparator": "."
-        },
-        "@schematics/angular:service": {
-          "skipTests": true,
-          "type": "service",
-          "addTypeToClassName": false
-        },
-        "@schematics/angular:module": {
-          "typeSeparator": "."
-        }
-      },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/desktop",
+      "sourceRoot": "projects/desktop/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "src/main.ts",
-            "tsConfig": "tsconfig.app.json",
+            "browser": "projects/desktop/src/main.ts",
+            "tsConfig": "projects/desktop/tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "src/assets",
+                "input": "projects/desktop/src/assets",
                 "output": "assets"
               }
             ],
-            "styles": ["src/styles.css"]
+            "styles": ["projects/desktop/src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -108,6 +98,32 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        }
+      }
+    },
+    "ui": {
+      "projectType": "library",
+      "root": "projects/ui",
+      "sourceRoot": "projects/ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/ui/tsconfig.spec.json"
+          }
         }
       }
     }

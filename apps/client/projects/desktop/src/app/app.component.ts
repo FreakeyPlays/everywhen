@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { invoke } from "@tauri-apps/api/core";
+import { ButtonComponent } from "@lib/ui";
 
 @Component({
   selector: "app-root",
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ButtonComponent],
   templateUrl: "./app.component.html",
   styles: [],
 })
