@@ -49,13 +49,7 @@ jobs:
           run-install: true
 
       - name: Test
-        run: |
-          if find . -type f \( -name '*.test.*' -o -name '*.spec.*' \) \
-            -not -path './node_modules/*' -print -quit | grep -q .; then
-            vp run --parallel --concurrency-limit 4 test
-          else
-            echo "No test files found; skipping tests"
-          fi
+        run: vp run -r --parallel --concurrency-limit 4 test
 
   release_dry:
     name: Release (dry run)
