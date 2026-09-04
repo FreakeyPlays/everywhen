@@ -6,39 +6,39 @@
     "packageManager": "bun"
   },
   "newProjectRoot": "projects",
+  "schematics": {
+    "@schematics/angular:component": {
+      "inlineStyle": true,
+      "type": "component",
+      "addTypeToClassName": false
+    },
+    "@schematics/angular:directive": {
+      "type": "directive",
+      "addTypeToClassName": false
+    },
+    "@schematics/angular:service": {
+      "type": "service",
+      "addTypeToClassName": false
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
+    }
+  },
   "projects": {
     "desktop": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "inlineStyle": true,
-          "type": "component",
-          "addTypeToClassName": false
-        },
-        "@schematics/angular:directive": {
-          "type": "directive",
-          "addTypeToClassName": false
-        },
-        "@schematics/angular:service": {
-          "type": "service",
-          "addTypeToClassName": false
-        },
-        "@schematics/angular:guard": {
-          "typeSeparator": "."
-        },
-        "@schematics/angular:interceptor": {
-          "typeSeparator": "."
-        },
-        "@schematics/angular:module": {
-          "typeSeparator": "."
-        },
-        "@schematics/angular:pipe": {
-          "typeSeparator": "."
-        },
-        "@schematics/angular:resolver": {
-          "typeSeparator": "."
-        }
-      },
       "root": "projects/desktop",
       "sourceRoot": "projects/desktop/src",
       "prefix": "app",
@@ -98,6 +98,32 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        }
+      }
+    },
+    "ui": {
+      "projectType": "library",
+      "root": "projects/ui",
+      "sourceRoot": "projects/ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/ui/tsconfig.spec.json"
+          }
         }
       }
     }
