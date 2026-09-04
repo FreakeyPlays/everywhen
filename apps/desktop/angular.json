@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "desktop": {
+    "client": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -98,10 +98,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "desktop:build:production"
+              "buildTarget": "client:build:production"
             },
             "development": {
-              "buildTarget": "desktop:build:development"
+              "buildTarget": "client:build:development"
             }
           },
           "defaultConfiguration": "development"

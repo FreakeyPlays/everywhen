@@ -13,7 +13,7 @@ export default defineConfig({
       {
         // Angular rules are scoped to the Angular app rather than declared globally,
         // so the other workspaces are not linted against Angular conventions.
-        files: ["apps/desktop/**/*.ts"],
+        files: ["apps/client/**/*.ts"],
         jsPlugins: [{ name: "@angular-eslint", specifier: "@angular-eslint/eslint-plugin" }],
         rules: {
           // Only the TS-side rules are usable here. Oxlint's JS plugin bridge has no
