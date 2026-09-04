@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "identifier": "dev.chrismerck.everywhen",
   "build": {
-    "frontendDist": "../dist/client/browser",
+    "frontendDist": "../dist/desktop/browser",
     "devUrl": "http://localhost:1420",
     "beforeDevCommand": "bun run start",
     "beforeBuildCommand": "bun run build"
