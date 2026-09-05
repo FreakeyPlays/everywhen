@@ -35,6 +35,9 @@
     },
     {
       "path": "./projects/ui/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ui/.storybook/tsconfig.json"
     }
   ]
 }

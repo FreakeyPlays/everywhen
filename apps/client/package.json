@@ -8,6 +8,7 @@
     "build": "ng build desktop",
     "watch": "ng build desktop --watch --configuration development",
     "test": "ng test desktop --watch=false",
+    "storybook": "ng run ui:storybook",
     "tauri": "tauri"
   },
   "dependencies": {
@@ -25,14 +26,23 @@
     "tslib": "catalog:"
   },
   "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^2.7.1",
+    "@angular-devkit/architect": "^0.2201.0",
+    "@angular-devkit/core": "^22.1.0",
+    "@angular/animations": "catalog:angular",
     "@angular/build": "catalog:angular",
     "@angular/cli": "catalog:angular",
     "@angular/compiler-cli": "catalog:angular",
+    "@storybook/addon-a11y": "10.6.0",
+    "@storybook/addon-docs": "10.6.0",
+    "@storybook/angular-vite": "10.6.0",
     "@tailwindcss/postcss": "^4.1.12",
     "@tauri-apps/cli": "^2.11.4",
+    "@types/node": "^24.9.0",
     "jsdom": "catalog:",
     "ng-packagr": "catalog:angular",
     "postcss": "^8.5.3",
+    "storybook": "^10.6.0",
     "tailwindcss": "^4.1.12",
     "typescript": "catalog:",
     "vitest": "catalog:"
