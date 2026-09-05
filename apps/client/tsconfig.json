@@ -14,7 +14,7 @@
     "target": "ES2022",
     "module": "preserve",
     "paths": {
-      "@lib/ui": ["./projects/ui/src/public-api.ts"]
+      "@everywhen/ui": ["./projects/ui/src/public-api.ts"]
     }
   },
   "angularCompilerOptions": {

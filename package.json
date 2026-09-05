@@ -4,39 +4,72 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "apps/*"
+    "apps/*",
+    "apps/client/projects/*"
   ],
   "type": "module",
   "scripts": {
-    "ready": "vp check && vp run -r test && vp run -r build",
+    "build": "vp run -r build",
+    "dev": "vp run @everywhen/client#dev",
     "prepare": "vp config",
+    "ready": "vp check && vp run test && vp run build",
+    "test": "vp run -r --parallel --concurrency-limit 4 test",
+    "typecheck": "vp run -r typecheck",
     "version": "bun scripts/release.ts version",
     "release:preview": "bun scripts/release.ts version --dry"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "^22.2.0",
-    "@types/bun": "^1.4.0",
+    "@angular-eslint/eslint-plugin": "catalog:angular",
+    "@types/bun": "catalog:",
     "@varlock/bitwarden-plugin": "^2.0.1",
+    "typescript": "catalog:",
     "varlock": "^1.18.0",
     "vite": "catalog:",
     "vite-plus": "catalog:"
   },
   "overrides": {
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vitest": "catalog:"
   },
   "devEngines": {
     "packageManager": {
       "name": "bun",
       "version": "1.4.0",
       "onFail": "download"
+    },
+    "runtime": {
+      "name": "node",
+      "version": "24.15.0",
+      "onFail": "download"
     }
   },
   "engines": {
-    "node": ">=22.18.0"
+    "node": ">=24.15.0"
   },
   "catalog": {
+    "@types/bun": "^1.4.0",
     "effect": "4.0.0-rc.112",
+    "jsdom": "^30.0.1",
+    "tslib": "^2.3.0",
+    "typescript": "~6.0.2",
     "vite": "npm:@voidzero-dev/vite-plus-core@0.3.0",
-    "vite-plus": "0.3.0"
+    "vite-plus": "0.3.0",
+    "vitest": "4.1.11"
+  },
+  "catalogs": {
+    "angular": {
+      "@angular/build": "^22.1.0",
+      "@angular/cli": "^22.1.0",
+      "@angular/common": "^22.1.0",
+      "@angular/compiler": "^22.1.0",
+      "@angular/compiler-cli": "^22.1.0",
+      "@angular/core": "^22.1.0",
+      "@angular/forms": "^22.1.0",
+      "@angular/platform-browser": "^22.1.0",
+      "@angular/router": "^22.1.0",
+      "@angular-eslint/eslint-plugin": "^22.2.0",
+      "ng-packagr": "^22.1.0",
+      "rxjs": "~7.8.0"
+    }
   }
 }
