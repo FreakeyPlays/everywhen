@@ -4,6 +4,10 @@ const config: StorybookConfig = {
   stories: ["../src/**/*.stories.ts"],
   addons: ["@storybook/addon-vitest", "@storybook/addon-a11y", "@storybook/addon-docs"],
   framework: "@storybook/angular-vite",
+  features: {
+    menuOnboardingChecklist: false,
+    sidebarOnboardingChecklist: false,
+  },
 };
 
 export default config;
