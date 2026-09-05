@@ -1,10 +1,10 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { defineConfig } from "vite-plus";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
-import { playwright } from "vite-plus/test/browser-playwright";
 import { storybookAngularVitest } from "@storybook/angular-vite/vitest";
+import { defineConfig, defineProject } from "vite-plus";
+import { playwright } from "vite-plus/test/browser-playwright";
 
 const dirname =
   typeof __dirname !== "undefined" ? __dirname : path.dirname(fileURLToPath(import.meta.url));
@@ -12,10 +12,9 @@ const dirname =
 export default defineConfig({
   test: {
     projects: [
-      {
-        extends: true,
+      defineProject({
         plugins: [
-          storybookAngularVitest({}),
+          storybookAngularVitest(),
           storybookTest({
             configDir: path.join(dirname, ".storybook"),
           }),
@@ -25,7 +24,7 @@ export default defineConfig({
           browser: {
             enabled: true,
             headless: true,
-            provider: playwright({}),
+            provider: playwright(),
             instances: [
               {
                 browser: "chromium",
@@ -33,7 +32,7 @@ export default defineConfig({
             ],
           },
         },
-      },
+      }),
     ],
   },
 });
