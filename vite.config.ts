@@ -50,7 +50,7 @@ export default defineConfig({
   },
   run: {
     cache: {
-      scripts: false,
+      scripts: true,
       tasks: true,
     },
   },

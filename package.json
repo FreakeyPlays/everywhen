@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "apps/*"
+    "apps/*",
+    "apps/client/projects/*"
   ],
   "type": "module",
   "scripts": {
@@ -38,12 +39,12 @@
     },
     "runtime": {
       "name": "node",
-      "version": "24.20.0",
+      "version": "24.15.0",
       "onFail": "download"
     }
   },
   "engines": {
-    "node": ">=22.18.0"
+    "node": ">=24.15.0"
   },
   "catalog": {
     "@types/bun": "^1.4.0",
