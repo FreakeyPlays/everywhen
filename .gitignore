@@ -34,3 +34,6 @@ env.d.ts
 
 # AI agent worktrees
 .claude/worktrees/
+
+# Visual regression
+.vitest-attachments/

@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.lib.json",
+  "compilerOptions": {
+    "rootDir": "..",
+    "outDir": "../../../out-tsc/storybook",
+    "types": ["node", "vite/client"],
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
+  },
+  "include": ["../src/**/*.ts", "./*.ts"],
+  "exclude": ["../src/**/*.spec.ts"],
+  "files": ["./typings.d.ts"]
+}
