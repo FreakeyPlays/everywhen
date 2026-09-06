@@ -8,6 +8,8 @@
     "build": "ng build desktop",
     "watch": "ng build desktop --watch --configuration development",
     "test": "ng test desktop --watch=false",
+    "test:visual": "vitest run --config vitest.config.mts",
+    "test:visual:update": "vitest run --config vitest.config.mts --update",
     "storybook": "ng run ui:storybook",
     "tauri": "tauri"
   },
