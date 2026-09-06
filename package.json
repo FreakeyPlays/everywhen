@@ -10,7 +10,6 @@
   "type": "module",
   "scripts": {
     "prepare": "vp config",
-    "dev": "vp run -r dev",
     "dev:web": "vp run @everywhen/client#dev",
     "dev:desktop": "vp run @everywhen/client#tauri dev",
     "build": "vp run -r build",
