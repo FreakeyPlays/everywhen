@@ -1,6 +1,9 @@
 import * as Effect from "effect/Effect";
 import * as Schema from "effect/Schema";
 
+/**
+ * @wip Not yet consumed by the UI.
+ */
 export const Theme = Schema.Literals(["system", "light", "dark"]);
 export type Theme = typeof Theme.Type;
 
@@ -12,6 +15,9 @@ export type Settings = typeof SettingsSchema.Type;
 
 export const DEFAULT_SETTINGS: Settings = Schema.decodeSync(SettingsSchema)({});
 
+/**
+ * @wip Not yet consumed by the UI.
+ */
 export const SettingsPatchSchema = Schema.Struct({
   theme: Schema.optionalKey(Theme),
 });

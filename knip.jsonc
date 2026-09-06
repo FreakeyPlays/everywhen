@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/knip/schema-jsonc.json",
+  "rules": { "types": "off" },
+  "tags": ["-@wip"],
+  "workspaces": {
+    ".": {
+      "project": ["*.{js,mjs,cjs,ts,mts,cts}"],
+      "stryker": false,
+      "ignoreDependencies": [
+        "@angular-eslint/eslint-plugin",
+        "varlock",
+        "@varlock/bitwarden-plugin",
+      ],
+    },
+    "packages/*": {
+      "project": ["src/**/*.ts!"],
+      "includeEntryExports": true,
+    },
+    "apps/client/projects/ui": {
+      "ignoreDependencies": [
+        "@angular/build",
+        "@angular/common",
+        "@angular/compiler-cli",
+        "@angular/platform-browser",
+        "ng-packagr",
+        "tslib",
+      ],
+    },
+  },
+}

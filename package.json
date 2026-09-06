@@ -37,6 +37,7 @@
     "@angular-eslint/eslint-plugin": "catalog:angular",
     "@types/bun": "catalog:",
     "@varlock/bitwarden-plugin": "^2.0.1",
+    "knip": "^6.34.0",
     "typescript": "catalog:",
     "varlock": "^1.18.0",
     "vite": "catalog:",
