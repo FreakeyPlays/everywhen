@@ -45,6 +45,7 @@
     "vite-plus": "catalog:"
   },
   "overrides": {
+    "qs": "6.16.0",
     "vite": "catalog:",
     "vitest": "catalog:"
   },
