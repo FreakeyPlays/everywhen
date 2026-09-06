@@ -23,7 +23,7 @@
     "typecheck": "vp run -r typecheck",
     "version": "bun scripts/release.ts version",
     "release:preview": "bun scripts/release.ts version --dry",
-    "clean": "rm -rf node_modules {apps/*,packages/*,apps/client/projects/*}/node_modules apps/*/dist apps/client/{src-tauri/{target,gen},.angular,coverage,out-tsc}"
+    "clean": "rm -rf node_modules .angular {apps/*,packages/*,apps/client/projects/*}/node_modules apps/*/dist apps/client/{src-tauri/{target,gen},.angular,coverage,out-tsc}"
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "catalog:angular",
