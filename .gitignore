@@ -38,3 +38,8 @@ env.d.ts
 
 # Visual regression
 .vitest-attachments/
+
+# Code quality reports and isolated mutation sandboxes
+reports/
+coverage/
+.stryker-tmp/

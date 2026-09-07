@@ -1,0 +1,148 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sverweij/dependency-cruiser/main/src/schema/configuration.schema.json",
+  "forbidden": [
+    {
+      "name": "no-circular",
+      "severity": "error",
+      "comment": "Keep module initialization and type dependencies acyclic.",
+      "from": {},
+      "to": { "circular": true }
+    },
+    {
+      "name": "no-unresolved",
+      "severity": "error",
+      "from": {},
+      "to": { "couldNotResolve": true }
+    },
+    {
+      "name": "no-undeclared-packages",
+      "severity": "error",
+      "from": {},
+      "to": { "dependencyTypes": ["npm-no-pkg", "npm-unknown"] }
+    },
+    {
+      "name": "no-production-to-test",
+      "severity": "error",
+      "comment": "Tests and stories may import production code; production must not import them.",
+      "from": {
+        "path": "^(?:packages/[^/]+/src/|apps/client/projects/[^/]+/src/)",
+        "pathNot": "(?:\\.(?:spec|test|stories)\\.[cm]?[jt]sx?$|(?:^|/)(?:\\.storybook|__tests__|__mocks__|test-utils)/)"
+      },
+      "to": {
+        "path": "(?:\\.(?:spec|test|stories)\\.[cm]?[jt]sx?$|(?:^|/)(?:\\.storybook|__tests__|__mocks__|test-utils)/)"
+      }
+    },
+    {
+      "name": "no-production-to-dev-dependencies",
+      "severity": "error",
+      "from": {
+        "path": "^(?:packages/[^/]+/src/|apps/client/projects/[^/]+/src/)",
+        "pathNot": "(?:\\.(?:spec|test|stories)\\.[cm]?[jt]sx?$|(?:^|/)(?:\\.storybook|__tests__|__mocks__|test-utils)/)"
+      },
+      "to": {
+        "dependencyTypes": ["npm-dev"],
+        "dependencyTypesNot": ["npm", "npm-peer"]
+      }
+    },
+    {
+      "name": "contracts-stay-independent",
+      "severity": "error",
+      "comment": "Contracts define schemas and types; they cannot depend on shared behavior or apps.",
+      "from": { "path": "^packages/contracts/" },
+      "to": { "path": "^(?:apps/|packages/(?!contracts/)|scripts/)" }
+    },
+    {
+      "name": "shared-stays-independent-of-apps",
+      "severity": "error",
+      "comment": "Shared behavior can use contracts, but cannot reach into apps or tooling.",
+      "from": { "path": "^packages/shared/" },
+      "to": { "path": "^(?:apps/|scripts/)" }
+    },
+    {
+      "name": "domain-has-no-framework-dependencies",
+      "severity": "error",
+      "comment": "Keep contracts and shared logic usable outside Angular and Tauri.",
+      "from": {
+        "path": "^packages/(?:contracts|shared)/src/",
+        "pathNot": "(?:\\.(?:spec|test|stories)\\.[cm]?[jt]sx?$|(?:^|/)(?:\\.storybook|__tests__|__mocks__|test-utils)/)"
+      },
+      "to": { "path": "(?:^|/)(?:@angular|@tauri-apps|@storybook)/" }
+    },
+    {
+      "name": "ui-stays-reusable",
+      "severity": "error",
+      "comment": "The UI library must not depend on application or domain-specific behavior.",
+      "from": { "path": "^apps/client/projects/ui/" },
+      "to": { "path": "^(?:packages/|scripts/|apps/(?!client/projects/ui/))" }
+    },
+    {
+      "name": "ui-has-no-native-dependencies",
+      "severity": "error",
+      "from": { "path": "^apps/client/projects/ui/" },
+      "to": { "path": "(?:^|/)@tauri-apps/" }
+    },
+    {
+      "name": "use-ui-public-api",
+      "severity": "error",
+      "comment": "Consumers import @everywhen/ui instead of reaching into its components.",
+      "from": { "pathNot": "^apps/client/projects/ui/" },
+      "to": { "path": "^apps/client/projects/ui/src/(?!public-api\\.ts$)" }
+    },
+    {
+      "name": "use-contracts-package-exports",
+      "severity": "error",
+      "comment": "Use the package.json exports instead of relative imports across workspaces.",
+      "from": { "pathNot": "^packages/contracts/" },
+      "to": {
+        "path": "^packages/contracts/",
+        "dependencyTypes": ["local", "localmodule"],
+        "dependencyTypesNot": ["aliased-workspace"]
+      }
+    },
+    {
+      "name": "use-shared-package-exports",
+      "severity": "error",
+      "comment": "Use the package.json exports instead of relative imports across workspaces.",
+      "from": { "pathNot": "^packages/shared/" },
+      "to": {
+        "path": "^packages/shared/",
+        "dependencyTypes": ["local", "localmodule"],
+        "dependencyTypesNot": ["aliased-workspace"]
+      }
+    },
+    {
+      "name": "no-node-in-browser-or-domain",
+      "severity": "error",
+      "comment": "Platform APIs belong in adapters, outside portable domain and browser code.",
+      "from": {
+        "path": "^(?:packages/[^/]+/src/|apps/client/projects/[^/]+/src/)",
+        "pathNot": "(?:\\.(?:spec|test|stories)\\.[cm]?[jt]sx?$|(?:^|/)(?:\\.storybook|__tests__|__mocks__|test-utils)/)"
+      },
+      "to": { "dependencyTypes": ["core"] }
+    }
+  ],
+  "options": {
+    "tsPreCompilationDeps": true,
+    "combinedDependencies": true,
+    "builtInModules": { "add": ["bun"] },
+    "doNotFollow": { "path": "(?:^|/)node_modules/" },
+    "tsConfig": {
+      "fileName": "tsconfig.dependency-cruiser.json"
+    },
+    "exclude": {
+      "path": [
+        "^packages/[^/]+/(?:dist|coverage)/",
+        "^apps/client/(?:dist|coverage|out-tsc|src-tauri|\\.angular)/",
+        "^apps/client/projects/[^/]+/(?:dist|coverage|out-tsc)/",
+        "^(?:reports|\\.stryker-tmp)/"
+      ]
+    },
+    "enhancedResolveOptions": {
+      "exportsFields": ["exports"],
+      "conditionNames": ["import", "node", "default"]
+    },
+    "reporterOptions": {
+      "mermaid": { "minify": false }
+    }
+  }
+}

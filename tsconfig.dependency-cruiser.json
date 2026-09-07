@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./apps/client",
+    "paths": {
+      "@everywhen/ui": ["./projects/ui/src/public-api.ts"]
+    }
+  },
+  "files": ["apps/client/projects/ui/src/public-api.ts"]
+}
